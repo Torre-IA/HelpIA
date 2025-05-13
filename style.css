@@ -1,0 +1,338 @@
+/* General styles for body and html */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Inter, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Background section */
+#background {
+    position: relative;
+    z-index: -1;
+    width: 100vw;
+    height: auto;
+}
+
+/* Keyframe animations for decorative elements */
+@keyframes moveInOut1 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-30px, 10px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes moveInOut2 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-40px, 40px) scale(0.99);
+        opacity: 0.7;
+    }
+}
+
+@keyframes moveInOut3 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(-5px, -8px) scale(.99);
+        opacity: 0.3;
+    }
+}
+
+/* Decorative figures */
+.figure-1 {
+    position: absolute;
+    top: 0;
+    right: 250px;
+    width: 300px;
+    height: 300px; 
+    animation: moveInOut1 12s ease-in-out infinite;
+}
+
+.figure-2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 600px; 
+    animation: moveInOut2 10s ease-in-out infinite;
+}
+
+.figure-3 {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+    width: 325px; 
+    height: 573px;
+    opacity: 0.5;
+    animation: moveInOut3 7s ease-in-out infinite;
+}
+
+/* Header styles */
+header {
+    width: 90%;
+    max-width: 1200px;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    max-width: 80px;
+    margin-left: 150px;
+}
+
+header a {
+    text-decoration: none;
+    color: green;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+/* Main container styles */
+.container {
+    display: flex;
+    width: 90%;
+    max-width: 900px;
+    height: 70%;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    z-index: 2;
+}
+
+/* Left pane styles */
+.left-pane {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.left-pane h1 {
+    margin: 0 0 20px;
+    font-size: 1.8em;
+    color: #000000;
+}
+
+.left-pane p {
+    font-size: .9em;
+    color: #444444;
+    text-align: center;
+}
+
+.left-pane img {
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* Right pane styles */
+.right-pane {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.chatbot-container {
+    width: 100%;
+    height: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Country flags container */
+.container-countries {
+    display: flex;
+    gap: 10px;
+}
+
+.subcontainer-country {
+    width: 50px;
+    height: 5px;
+    text-align: center;
+}
+
+.subcontainer-country p {
+    margin: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Flag styles */
+.flag {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.flag div {
+    height: 100%;
+}
+
+/* Specific flag styles */
+#col .flag div:nth-child(1) {
+    width: 48%;
+}
+
+#col .flag div:not(:nth-child(1)) {
+    width: 26%;
+}
+
+#per .flag div {
+    width: 33.33%;
+}
+
+#ecu .flag div {
+    width: 33.33%;
+}
+
+#pan .flag div {
+    width: 33.33%;
+}
+
+#mex .flag div {
+    width: 33.33%;
+}
+
+#usa .flag div:nth-child(1) {
+    width: 30%;
+}
+
+#usa .flag div:nth-child(2) {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#usa .flag div:nth-child(2) div {
+    width: 10%;
+    display: flex;
+}
+
+/* Colors for flags */
+.yellow-color {
+    background-color: yellow;
+}
+
+.blue-color {
+    background-color: blue;
+}
+
+.red-color {
+    background-color: red;
+}
+
+.white-color {
+    background-color: white;
+}
+
+.green-color {
+    background-color: green;
+}
+
+/* Footer styles */
+footer {
+    width: 100vw;
+    margin-top: auto;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.827);
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.8em;
+    color: #333;
+}
+
+footer a {
+    color: #333;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        background-color: #ffffff9a;
+        margin: 20px 0px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    header img {
+        max-width: 100px;
+        margin: 0;
+    }
+
+    header a {
+        font-size: 12px;
+        margin-top: 15px;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .left-pane {
+        padding: 10px;
+        align-items: center;
+        text-align: center;
+        flex: 0;
+    }
+
+    .left-pane h1 {
+        margin: 0;
+    }
+
+    .left-pane p, .left-pane img {
+        display: none;
+    }
+
+    .right-pane {
+        width: 100%;
+        height: 100%;
+    }
+}
