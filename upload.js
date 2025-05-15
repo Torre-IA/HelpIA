@@ -1,12 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Configuración
-    const accountName = "poc01avc";
-    const containerName = "ct-poc-ai-avc";
-    const accountKey = "Bwcv66LKyga2eF60koRcnW1ctcSCK1gJiHQEO8vhHjbFUmhmPzP47pV0XduEaRG+c4lOrF0eT1lE+AStopCgyg==";
-
-    // Elementos del DOM
     const uploadButton = document.getElementById("uploadButton");
     const fileInput = document.getElementById("fileInput");
+
+    // 🔹 Reemplaza esta URL con el endpoint de Power Automate
+    const powerAutomateUrl = "https://prod-43.westus.logic.azure.com:443/workflows/3931b9486bb44b419d090f19a7e252de/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=plClrLfMr965eOWpVXfKkDTcz4RK1KGUIjuBMVbaPlQ";
 
     uploadButton.addEventListener("click", async function() {
         if (!fileInput.files || fileInput.files.length === 0) {
@@ -15,50 +12,38 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const file = fileInput.files[0];
-        
-        try {
-            // Verifica que la librería esté cargada
-            if (!window.azblob && !window.AzureStorage) {
-                throw new Error("La librería Azure Storage no se cargó correctamente");
-            }
+        const reader = new FileReader();
 
-            // Obtiene las clases necesarias
-            const { BlobServiceClient, StorageSharedKeyCredential } = window.azblob || window.AzureStorage.Blob;
-            
-            // Crea las instancias
-            const sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
-            const blobServiceClient = new BlobServiceClient(
-                `https://${accountName}.blob.core.windows.net`,
-                sharedKeyCredential
-            );
-            
-            // Operaciones con el blob
-            const containerClient = blobServiceClient.getContainerClient(containerName);
-            const exists = await containerClient.exists();
-            
-            if (!exists) {
-                alert("El contenedor no existe");
-                return;
-            }
+        reader.onload = async function(event) {
+            try {
+                const fileContent = event.target.result.split(",")[1]; // Base64 content
+                const contentType = file.type;
 
-            const blobName = `RFP/${file.name}`;
-            const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-            
-            alert("Subiendo archivo...");
-            await blockBlobClient.uploadData(file, {
-                blobHTTPHeaders: { blobContentType: file.type }
-            });
-            
-            alert(`Archivo ${file.name} subido exitosamente!\nEl índice se actualizará en 5 minutos.`);
-            
-        } catch (error) {
-            console.error("Error completo:", error);
-            alert(`Error al subir: ${error.message}`);
-            
-            // Diagnóstico adicional
-            if (!window.azblob && !window.AzureStorage) {
-                alert("⚠️ La librería Azure no se cargó. Verifica:\n1. La conexión a internet\n2. Que el script del CDN se cargó antes que upload.js");
+                // 🔹 Enviar datos al flujo de Power Automate
+                const response = await fetch(powerAutomateUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        fileName: `${file.name}`,
+                        fileContent: fileContent,
+                        contentType: contentType
+                    })
+                });
+
+                if (response.ok) {
+                    alert(`Archivo ${file.name} subido exitosamente a través de Power Automate!. Se actualizara la base de conocimiento en 5 minutos.`);
+                } else {
+                    const errorDetails = await response.text();
+                    alert(`Error en la subida: ${errorDetails}`);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert(`Error al subir: ${error.message}`);
             }
-        }
+        };
+
+        reader.readAsDataURL(file);
     });
 });
